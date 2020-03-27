@@ -1,12 +1,14 @@
+Testing 
+
 security-audit
-Task
+
 Perform a security audit on the contract.
 
  Document in a report all the issues/vulnerabilities, classify their severities and provide recommendations.
 
 Disclamer! This project is used for practicing security audit on a contract intentially coded with security vunerabilities. 
 
-Audited by : Lobsang Tenzin student Id : 101247081
+Audited by : Karanjot Singh Id : 101195883
 
 Contract Audited BadKickback.sol link: https://github.com/ethereumgb/security-audit/blob/master/contracts/BadKickback.sol
  
@@ -24,11 +26,38 @@ Recommendation Don't let the owner control the function. remove this code requir
 
 Recommendation make the contract payout to all participents.
 
- remove this code (address[] memory attendees) and in the payout function replace all of the attendees with participants that was used to hold the users that payed for the event. 
 
-mapping(address=>bool) public participants;
+3. Self destruction vernabilityu
+  Severity 
+  owner privileges
+  Description
+  Anyone is allowed to call the self destruction function. 
+  Selfdestruction of the callee contract can leave callers in an inoperable state.
 
+ Recommendation
+  Add the following code to the destroy() function:
+  require(owner== msg.sender);
 
-Conclusion The audited smart contract can not be deployed. 
+4. Gas requirement of payout function
+   Severity
+   critical
+
+  Description
+  If the gas requirement of a function is higher than the block gas limit, it cannot be executed.
+
+  Recommendation
+  The problem can be fixed by storing the attendees addresses in an array instead of mapping.
+
+5. Static variable is not constant 
+   Severity
+    low
+
+   Description
+   The constant variable "cap" is not declared as a constant.
+ 
+  Conclusion : 
+
+The audited smart contract can not be deployed. 
 
 This contract is not trustable as many critical severity found that shows that this contract many be to scam ether from participants.
+
